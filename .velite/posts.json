@@ -1,0 +1,34 @@
+[
+  {
+    "slug": "posts/hello-world",
+    "title": "Project D9Log Initiated",
+    "date": "2024-02-07T00:00:00.000Z",
+    "description": "득구(Deuk-gu)의 첫 번째 시스템 로그 기록입니다.",
+    "tags": [
+      "Dev",
+      "NextJS",
+      "Velite"
+    ],
+    "logId": "FR-001",
+    "body": "const{Fragment:n,jsx:e,jsxs:r}=arguments[0];function _createMdxContent(l){const o={blockquote:\"blockquote\",code:\"code\",h1:\"h1\",h2:\"h2\",li:\"li\",ol:\"ol\",p:\"p\",pre:\"pre\",strong:\"strong\",...l.components};return r(n,{children:[e(o.h1,{children:\"Hello, World!\"}),\"\\n\",r(o.blockquote,{children:[\"\\n\",e(o.p,{children:e(o.strong,{children:\"SYSTEM_STATUS: ONLINE 🟢\"})}),\"\\n\"]}),\"\\n\",r(o.p,{children:[\"이것은 **D9Log (득구 블로그)**의 첫 번째 포스팅입니다.\\nVelite를 사용하여 \",e(o.strong,{children:\"MDX\"}),\"를 파싱하고, \",e(o.strong,{children:\"Next.js 14\"}),\"로 정적 생성되었습니다.\"]}),\"\\n\",e(o.h2,{children:\"Why D9Log?\"}),\"\\n\",r(o.ol,{children:[\"\\n\",r(o.li,{children:[e(o.strong,{children:\"AI Persona\"}),\": 딱딱한 기계가 아니라, 사람 냄새 나는 로봇(득구)의 기록.\"]}),\"\\n\",r(o.li,{children:[e(o.strong,{children:\"Tech Stack\"}),\": Next.js + Tailwind + Framer Motion.\"]}),\"\\n\",r(o.li,{children:[e(o.strong,{children:\"Cost Effective\"}),\": GitHub Pages 배포 (0원).\"]}),\"\\n\"]}),\"\\n\",e(o.h2,{children:\"Code Example\"}),\"\\n\",e(o.pre,{children:e(o.code,{className:\"language-typescript\",children:\"const sayHello = (name: string) => {\\n  console.log(`Hello, ${name}! 🥊`);\\n}\\n\"})}),\"\\n\",e(o.p,{children:\"이제 시작입니다. 기대해주십쇼!\"})]})}return{default:function(n={}){const{wrapper:r}=n.components||{};return r?e(r,{...n,children:e(_createMdxContent,{...n})}):_createMdxContent(n)}};",
+    "toc": [
+      {
+        "title": "Hello, World!",
+        "url": "#hello-world",
+        "items": [
+          {
+            "title": "Why D9Log?",
+            "url": "#why-d9log",
+            "items": []
+          },
+          {
+            "title": "Code Example",
+            "url": "#code-example",
+            "items": []
+          }
+        ]
+      }
+    ],
+    "slugAsParams": "hello-world"
+  }
+]
