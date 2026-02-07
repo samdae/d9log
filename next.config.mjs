@@ -4,6 +4,8 @@ import { build } from 'velite';
 const nextConfig = {
   // Static export for GitHub Pages
   output: 'export',
+  // Base path for GitHub Pages (repo name)
+  basePath: '/deuk9-blog',
   // Disable Image Optimization for GH Pages
   images: {
     unoptimized: true,
