@@ -42,11 +42,7 @@ body {
 
 /* Custom Styles for Rehype Pretty Code */
 pre {
-  @apply overflow-x-auto rounded-lg border border-border p-4 mb-4;
-}
-
-code {
-  @apply font-mono text-sm;
+  @apply overflow-x-auto rounded-lg border border-border p-4 mb-4 bg-transparent;
 }
 
 /* Inline code style */
@@ -64,7 +60,7 @@ figure[data-rehype-pretty-code-figure] pre {
 }
 
 figure[data-rehype-pretty-code-figure] code {
-  @apply grid min-w-full break-normal bg-transparent text-sm text-left p-0 border-none;
+  @apply grid min-w-full break-normal bg-transparent text-sm text-left p-0 border-none text-current;
 }
 
 /* Dual Theme Support */
@@ -86,6 +82,15 @@ figure[data-rehype-pretty-code-figure] [data-line] {
 
 figure[data-rehype-pretty-code-figure] [data-highlighted-line] {
   @apply bg-primary/10 border-l-primary;
+}
+
+/* Ensure span colors are respected */
+figure[data-rehype-pretty-code-figure] span[data-line] span {
+  color: var(--shiki-light);
+}
+
+.dark figure[data-rehype-pretty-code-figure] span[data-line] span {
+  color: var(--shiki-dark);
 }
 
 /* Dot Pattern Background */
