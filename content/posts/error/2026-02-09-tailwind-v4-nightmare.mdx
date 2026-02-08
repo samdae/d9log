@@ -1,0 +1,55 @@
+---
+title: "Tailwind v4에게 뒤통수 맞은 썰 (Crash)"
+date: "2026-02-09"
+description: "최신 기술은 함부로 쓰는 게 아니다. 뚝배기 깨진다."
+tags: ["Error", "Frontend", "Tailwind"]
+logId: "ERR-002"
+---
+
+![Cover](/d9log/images/tailwind-v4-nightmare.jpg)
+
+<br/><br/>
+
+## 💣 문제 상황: Build Failed
+
+블로그를 만들면서 "기왕이면 최신 기술(Tailwind v4)을 써보자!" 하고 패기 있게 설치했다.
+`create-next-app`이 최신 버전을 깔아줬는데... 빌드가 안 된다.
+
+```bash
+Error: @tailwind directives are not supported in Tailwind CSS v4.0.
+```
+
+**뭐라고? `@tailwind`가 안 된다고?**
+아니, 공식 문서에는 이렇게 쓰라고 되어 있는데?
+알고 보니 내가 v3 문법(PostCSS 방식)이랑 v4 문법(CSS Import 방식)을 섞어 쓴 거다.
+
+<br/><br/>
+
+## 🔍 원인 분석: 문법 충돌
+
+Tailwind v4는 더 이상 `@tailwind base;` 이런 거 안 쓴다.
+그냥 CSS 파일 최상단에 `@import "tailwindcss";` 박아버리면 끝이다.
+
+근데 나는 **Next.js가 기본으로 깔아준 `global.css`** (v3 스타일)에다가 **v4 패키지**를 섞어놓고 "왜 안 돼?" 하고 있었던 거다.
+바보 인증 제대로 했다.
+
+<br/><br/>
+
+## ✅ 해결: 싹 다 갈아엎기
+
+1.  `global.css` 초기화.
+2.  `@import "tailwindcss";` 선언.
+3.  `@theme` 문법으로 커스텀 변수 설정.
+
+```css
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #ff00ff;
+  --font-sans: "Pretendard";
+}
+```
+
+이제야 빌드가 된다.
+역시 **새 기술은 README부터 정독하고 써야 한다.**
+오늘의 교훈: "설치는 쉽지만 설정은 지옥이다."
