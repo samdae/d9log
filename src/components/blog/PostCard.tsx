@@ -16,7 +16,7 @@ export function PostCard({ post }: PostCardProps) {
           <span className="font-mono text-primary/80">[{post.logId}]</span>
         </div>
         
-        <Link href={`/${post.slug}`} className="block">
+        <Link href={`/${post.slugAsParams}`} className="block">
           <h2 className="text-xl font-bold tracking-tight text-foreground group-hover:text-primary transition-colors line-clamp-2">
             {post.title}
           </h2>
