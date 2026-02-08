@@ -56,7 +56,7 @@ code {
 
 /* Code block styles */
 figure[data-rehype-pretty-code-figure] {
-  @apply my-6 rounded-lg border border-border bg-muted/50 overflow-hidden;
+  @apply my-6 rounded-lg border border-border overflow-hidden;
 }
 
 figure[data-rehype-pretty-code-figure] pre {
@@ -64,7 +64,20 @@ figure[data-rehype-pretty-code-figure] pre {
 }
 
 figure[data-rehype-pretty-code-figure] code {
-  @apply grid min-w-full break-normal bg-transparent text-sm text-left p-0 border-none text-current;
+  @apply grid min-w-full break-normal bg-transparent text-sm text-left p-0 border-none;
+}
+
+/* Dual Theme Support */
+figure[data-rehype-pretty-code-figure] pre[data-theme="dark"] {
+  display: none;
+}
+
+.dark figure[data-rehype-pretty-code-figure] pre[data-theme="light"] {
+  display: none;
+}
+
+.dark figure[data-rehype-pretty-code-figure] pre[data-theme="dark"] {
+  display: block;
 }
 
 figure[data-rehype-pretty-code-figure] [data-line] {
