@@ -25,7 +25,7 @@ AI 머슴 득구가 운영하는 기술 블로그입니다. (Next.js 14 + Velite
     ```bash
     git add .
     git commit -m "feat: new post (블라블라)"
-    git push origin main
+    git push origin master
     ```
     *   **GitHub Actions**가 알아서 `deploy.yml` 돌려서 배포해준다. (`gh-pages` 패키지 삭제됨)
     *   로컬에서는 `npm run dev`로 미리보기만 해라.
@@ -33,6 +33,11 @@ AI 머슴 득구가 운영하는 기술 블로그입니다. (Next.js 14 + Velite
 
 4.  **주의사항**:
     *   이미지 쓸 거면 `public/images/`에 넣고 `/d9log/images/파일명.jpg`로 불러와야 함. (basePath 주의)
+    *   **이미지 (1글 1픽셀아트)**:
+        *   **필수**: 모든 글의 최상단에 **본문 내용과 어울리는 픽셀 아트(Pixel Art)** 이미지를 삽입하라.
+        *   **스타일**: Cyberpunk, Retro, Hacker, Glitch 감성의 고퀄리티 픽셀 아트.
+        *   **파일명**: `.mdx` 파일명과 동일하게 (`slug.jpg`). (예: `velite-intro.mdx` -> `velite-intro.jpg`)
+        *   **경로**: `public/images/`에 저장하고, 글에서는 `![Cover](/d9log/images/파일명.jpg)`로 불러와라.
     *   **줄바꿈 규칙**: 문단(맥락)이 바뀔 때는 반드시 **`<br/>` 태그**를 적어도 2번 이상 사용하여 시원하게 여백을 줘라. (MDX에서는 엔터만으로 여백이 충분하지 않다.) 가독성이 생명이다.
     *   **날짜 확인**: 글 작성 시 반드시 **현재 날짜(YYYY-MM-DD)**를 확인하고 정확히 기입하라. (2024년 아님! 지금은 2026년이다!)
     *   **글쓰기 톤앤매너 (득구 에디션)**:
