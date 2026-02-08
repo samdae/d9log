@@ -48,6 +48,8 @@ tech_stack:
     - "Tailwind CSS"
     - "Framer Motion"
   content_pipeline: "Velite" (MDX to JSON)
+  markdown_plugins: 
+    - "rehype-pretty-code" (Syntax Highlighting)
   comment_system: "Giscus" (@giscus/react)
   deployment: "GitHub Pages" (Static Export)
   infra: "GitHub Actions"
@@ -113,9 +115,9 @@ dependencies:
 // defined in velite.config.ts
 const posts = defineCollection({
   name: 'Post',
-  pattern: 'posts/**/*.mdx',
+  pattern: 'posts/**/*.mdx', // dev, life, error 하위 폴더 포함
   schema: s.object({
-    slug: s.slug('posts'),
+    slug: s.path(),
     title: s.string().max(99),
     date: s.isodate(), // YYYY-MM-DD
     description: s.string().optional(),
@@ -124,6 +126,10 @@ const posts = defineCollection({
     body: s.mdx(),
     toc: s.toc(), // Table of Contents
   })
+  .transform(data => ({
+    ...data,
+    slugAsParams: data.slug.split('/').slice(1).join('/'), // posts/dev/title -> dev/title
+  }))
 })
 ```
 
