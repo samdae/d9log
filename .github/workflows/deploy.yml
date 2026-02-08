@@ -3,7 +3,7 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: ["main"]
+    branches: ["master"]
   workflow_dispatch:
 
 permissions:
@@ -21,19 +21,33 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: "20"
           cache: "npm"
+      
       - name: Setup Pages
         uses: actions/configure-pages@v5
         with:
           static_site_generator: next
+      
       - name: Install dependencies
         run: npm ci
+      
+      # Velite Content Generation (Explicitly run before build)
+      - name: Generate Content (Velite)
+        run: npx velite
+      
       - name: Build with Next.js
         run: npm run build
+      
+      # .nojekyll is automatically handled by Next.js if output: export, 
+      # but creating it manually ensures GitHub Pages won't ignore _next folder.
+      - name: Create .nojekyll
+        run: touch out/.nojekyll
+      
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

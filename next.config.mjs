@@ -5,11 +5,12 @@ const nextConfig = {
   // Static export for GitHub Pages
   output: 'export',
   // Base path for GitHub Pages (repo name)
-  basePath: '/deuk9-blog',
+  basePath: '/d9log',
   // Disable Image Optimization for GH Pages
   images: {
     unoptimized: true,
   },
+  trailingSlash: true,
   // Velite integration
   webpack: config => {
     config.plugins.push(new VelitePlugin());

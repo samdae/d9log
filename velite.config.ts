@@ -1,4 +1,6 @@
+// velite.config.ts
 import { defineConfig, defineCollection, s } from 'velite'
+import rehypePrettyCode from 'rehype-pretty-code'
 
 // Post Collection Schema
 const posts = defineCollection({
@@ -20,6 +22,23 @@ const posts = defineCollection({
   }))
 })
 
+// Rehype Pretty Code Options
+const prettyCodeOptions = {
+  theme: {
+    dark: 'one-dark-pro',
+    light: 'github-light',
+  },
+  keepBackground: true,
+  onVisitLine(node: any) {
+    if (node.children.length === 0) {
+      node.children = [{ type: 'text', value: ' ' }]
+    }
+  },
+  onVisitHighlightedLine(node: any) {
+    node.properties.className.push('line-highlighted')
+  },
+}
+
 export default defineConfig({
   root: 'content',
   output: {
@@ -33,7 +52,7 @@ export default defineConfig({
     posts
   },
   mdx: {
-    rehypePlugins: [],
+    rehypePlugins: [[rehypePrettyCode, prettyCodeOptions]],
     remarkPlugins: []
   }
 })

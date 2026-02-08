@@ -14,7 +14,7 @@ const components = {
   h1: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h1
       className={cn(
-        "mt-2 scroll-m-20 text-4xl font-bold tracking-tight text-[#ededed]",
+        "mt-2 scroll-m-20 text-4xl font-bold tracking-tight text-foreground",
         className
       )}
       {...props}
@@ -22,14 +22,14 @@ const components = {
   ),
   p: ({ className, ...props }: React.HTMLAttributes<HTMLParagraphElement>) => (
     <p
-      className={cn("leading-7 [&:not(:first-child)]:mt-6 text-[#ededed]/80", className)}
+      className={cn("leading-7 [&:not(:first-child)]:mt-6 text-muted-foreground", className)}
       {...props}
     />
   ),
   code: ({ className, ...props }: React.HTMLAttributes<HTMLElement>) => (
     <code
       className={cn(
-        "relative rounded bg-[#262626] px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold text-[#00ff41]",
+        "relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold text-foreground",
         className
       )}
       {...props}

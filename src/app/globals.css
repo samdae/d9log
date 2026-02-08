@@ -1,14 +1,82 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
-@layer base {
-  :root {
-    --background: 0 0% 3.9%;
-    --foreground: 0 0% 98%;
-  }
+@theme {
+  --color-background: #ffffff;
+  --color-foreground: #171717; /* neutral-900 */
+  --color-border: #e5e7eb;
+  --color-muted: #f3f4f6;
+  --color-muted-foreground: #6b7280;
+  --color-primary: #16a34a; /* green-600 */
+  --color-primary-foreground: #ffffff;
+}
 
-  body {
-    @apply bg-[#0a0a0a] text-[#ededed];
-  }
+@variant dark (&:where(.dark, .dark *));
+
+:root {
+  --color-background: #ffffff;
+  --color-foreground: #171717;
+  --color-border: #e5e7eb;
+  --color-muted: #f3f4f6;
+  --color-muted-foreground: #6b7280;
+  --color-primary: #16a34a;
+  --color-primary-foreground: #ffffff;
+}
+
+.dark {
+  --color-background: #171717; /* neutral-900 */
+  --color-foreground: #f5f5f5; /* neutral-100 */
+  --color-border: #404040; /* neutral-700 */
+  --color-muted: #262626; /* neutral-800 */
+  --color-muted-foreground: #a3a3a3;
+  --color-primary: #22c55e; /* green-500 */
+  --color-primary-foreground: #000000;
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+}
+
+/* Custom Styles for Rehype Pretty Code */
+pre {
+  @apply overflow-x-auto rounded-lg border border-border p-4 mb-4;
+}
+
+code {
+  @apply font-mono text-sm;
+}
+
+/* Inline code style */
+:not(pre) > code {
+  @apply rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold text-primary;
+}
+
+/* Code block styles */
+figure[data-rehype-pretty-code-figure] {
+  @apply my-6 rounded-lg border border-border bg-muted/50 overflow-hidden;
+}
+
+figure[data-rehype-pretty-code-figure] pre {
+  @apply mb-0 border-0 rounded-none bg-transparent p-4 overflow-x-auto;
+}
+
+figure[data-rehype-pretty-code-figure] code {
+  @apply grid min-w-full break-normal bg-transparent text-sm text-left p-0 border-none text-current;
+}
+
+figure[data-rehype-pretty-code-figure] [data-line] {
+  @apply px-4 border-l-2 border-transparent;
+}
+
+figure[data-rehype-pretty-code-figure] [data-highlighted-line] {
+  @apply bg-primary/10 border-l-primary;
+}
+
+/* Dot Pattern Background */
+.bg-dot-pattern {
+  background-image: radial-gradient(var(--color-border) 1px, transparent 1px);
+  background-size: 24px 24px;
 }

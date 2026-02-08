@@ -133,13 +133,13 @@ const posts = defineCollection({
 
 | # | Spec Ref | Feature | File | Class | Method | Action | Impl |
 |---|----------|---------|------|-------|--------|--------|------|
-| 1 | FR-007 | Config | `next.config.mjs` | - | - | `output: 'export'`, `images.unoptimized: true` 설정 | [ ] |
-| 2 | FR-001 | Schema | `velite.config.ts` | - | - | Post 컬렉션 스키마 정의 | [ ] |
-| 3 | FR-001 | Utils | `src/lib/utils.ts` | - | `sortPosts` | 날짜 내림차순 정렬 함수 | [ ] |
-| 4 | FR-004 | Utils | `src/lib/utils.ts` | - | `getAllTags` | 태그 목록 및 카운트 집계 | [ ] |
-| 5 | FR-006 | Sitemap | `src/app/sitemap.ts` | - | `generateSitemap` | 전체 포스트 URL 리스트 반환 | [ ] |
-| 6 | FR-002 | Comments | `src/components/comments.tsx` | `Comments` | - | Giscus 컴포넌트 구현 (`use client`) | [ ] |
-| 7 | FR-003 | Theme | `src/app/layout.tsx` | - | - | ThemeProvider 및 기본 폰트 적용 | [ ] |
+| 1 | FR-007 | Config | `next.config.mjs` | - | - | `output: 'export'`, `images.unoptimized: true` 설정 | [x] |
+| 2 | FR-001 | Schema | `velite.config.ts` | - | - | Post 컬렉션 스키마 정의 | [x] |
+| 3 | FR-001 | Utils | `src/lib/utils.ts` | - | `sortPosts` | 날짜 내림차순 정렬 함수 | [x] |
+| 4 | FR-004 | Utils | `src/lib/utils.ts` | - | `getAllTags` | 태그 목록 및 카운트 집계 | [x] |
+| 5 | FR-006 | Sitemap | `src/app/sitemap.ts` | - | `generateSitemap` | 전체 포스트 URL 리스트 반환 | [x] |
+| 6 | FR-002 | Comments | `src/components/comments.tsx` | `Comments` | - | Giscus 컴포넌트 구현 (`use client`) | [x] |
+| 7 | FR-003 | Theme | `src/app/layout.tsx` | - | - | ThemeProvider 및 기본 폰트 적용 | [x] |
 
 ---
 

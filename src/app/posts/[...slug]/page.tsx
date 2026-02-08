@@ -5,6 +5,9 @@ import { getAllPosts, getPostBySlug } from "@/lib/posts";
 import { MDXContent } from "@/components/mdx/MDXContent";
 import { Giscus } from "@/components/comments/Giscus";
 import { formatDate } from "@/lib/utils";
+import Link from "next/link";
+
+import { Sidebar } from "@/components/layout/Sidebar";
 
 interface PostPageProps {
   params: Promise<{
@@ -46,24 +49,46 @@ export default async function PostPage({ params }: PostPageProps) {
   }
 
   return (
-    <article className="container py-6 prose dark:prose-invert max-w-none">
-      <div className="space-y-4 text-center">
-        <div className="text-[#00ff41] font-mono text-sm">
-          [{post.logId || "LOG_UNKNOWN"}]
+    <div className="grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-10">
+      <article className="prose dark:prose-invert max-w-none prose-a:text-primary hover:prose-a:text-primary/80">
+        <div className="space-y-4 text-center mb-12 pt-4">
+          <div className="text-primary font-mono text-sm font-medium">
+            [{post.logId || "LOG_UNKNOWN"}]
+          </div>
+          <h1 className="text-3xl font-bold leading-tight tracking-tight sm:text-4xl sm:leading-tight md:text-5xl md:leading-tight text-foreground">
+            {post.title}
+          </h1>
+          <div className="text-muted-foreground text-sm">
+            {formatDate(post.date)}
+          </div>
         </div>
-        <h1 className="text-3xl font-extrabold leading-9 tracking-tight sm:text-4xl sm:leading-10 md:text-5xl md:leading-14 text-[#ededed]">
-          {post.title}
-        </h1>
-        <div className="text-[#ededed]/60 text-sm">
-          {formatDate(post.date)}
+        
+        <div className="mt-8 border-t border-border pt-12">
+          <MDXContent code={post.body} />
         </div>
-      </div>
-      
-      <div className="mt-8 border-t border-[#262626] pt-8">
-        <MDXContent code={post.body} />
-      </div>
 
-      <Giscus />
-    </article>
+        {/* Tags Section */}
+        <div className="mt-12 flex flex-wrap gap-2">
+          {post.tags.map((tag) => (
+            <Link
+              key={tag}
+              href={`/?category=${tag}`}
+              className="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-muted text-muted-foreground hover:bg-primary/10 hover:text-primary transition-colors"
+            >
+              #{tag}
+            </Link>
+          ))}
+        </div>
+
+        <Giscus />
+      </article>
+
+      {/* Sidebar (Desktop & Mobile) */}
+      <div className="pt-6">
+        <div className="sticky top-24">
+          <Sidebar />
+        </div>
+      </div>
+    </div>
   );
 }

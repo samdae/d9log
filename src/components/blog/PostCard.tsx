@@ -9,31 +9,31 @@ interface PostCardProps {
 
 export function PostCard({ post }: PostCardProps) {
   return (
-    <article className="group relative flex flex-col space-y-2 border-l-2 border-[#262626] pl-6 transition-colors hover:border-[#00ff41]">
-      <div className="absolute -left-[5px] top-2 h-2.5 w-2.5 rounded-full border-2 border-[#262626] bg-[#0a0a0a] group-hover:border-[#00ff41] group-hover:bg-[#00ff41]" />
-      
-      <div className="flex items-center space-x-2 text-xs text-[#bc13fe]">
-        <span>[{post.logId || "LOG_UNKNOWN"}]</span>
-        <span className="text-[#ededed]/60">{formatDate(post.date)}</span>
+    <article className="group flex flex-col justify-between rounded-lg border border-border bg-card p-6 shadow-sm transition-all hover:shadow-md hover:border-primary/50 h-full">
+      <div className="space-y-3">
+        <div className="flex items-center justify-between text-xs text-muted-foreground">
+          <time dateTime={post.date}>{formatDate(post.date)}</time>
+          <span className="font-mono text-primary/80">[{post.logId}]</span>
+        </div>
+        
+        <Link href={`/${post.slug}`} className="block">
+          <h2 className="text-xl font-bold tracking-tight text-foreground group-hover:text-primary transition-colors line-clamp-2">
+            {post.title}
+          </h2>
+        </Link>
+        
+        {post.description && (
+          <p className="text-sm text-muted-foreground line-clamp-3 leading-relaxed">
+            {post.description}
+          </p>
+        )}
       </div>
       
-      <Link href={`/${post.slug}`} className="block">
-        <h2 className="font-heading text-xl font-bold text-[#ededed] group-hover:text-[#00ff41] transition-colors">
-          {post.title}
-        </h2>
-      </Link>
-      
-      {post.description && (
-        <p className="text-sm text-[#ededed]/70 line-clamp-2">
-          {post.description}
-        </p>
-      )}
-      
-      <div className="flex gap-2 pt-2">
+      <div className="mt-4 pt-4 border-t border-border/50 flex flex-wrap gap-2">
         {post.tags.map((tag) => (
-          <span
-            key={tag}
-            className="inline-flex items-center rounded border border-[#262626] bg-[#0a0a0a] px-2 py-0.5 text-xs font-medium text-[#ededed]/80"
+          <span 
+            key={tag} 
+            className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-muted text-muted-foreground group-hover:bg-primary/10 group-hover:text-primary transition-colors"
           >
             #{tag}
           </span>

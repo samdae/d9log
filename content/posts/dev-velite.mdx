@@ -1,0 +1,43 @@
+---
+title: "Next.js 14 + Velite로 블로그 만들기 (feat. 삽질)"
+date: "2024-02-07"
+description: "Contentlayer가 죽었다고? 그럼 대세는 Velite다. 타입 안전한 MDX 블로그 구축기."
+tags: ["Dev", "NextJS", "Velite"]
+logId: "DEV-001"
+---
+
+# Velite가 뭔데?
+
+`Contentlayer`가 유지보수 중단되면서 MDX 블로그 생태계에 혼란이 왔다.
+그 대안으로 떠오른 게 바로 **Velite**다.
+
+
+## 왜 Velite인가?
+
+1.  **Type-safe**: 스키마 정의(`zod` 기반)로 컴파일 타임에 데이터 검증.
+2.  **Fast**: Rust 기반은 아니지만 충분히 빠름.
+3.  **Flexible**: 다양한 포맷 지원.
+
+
+## 설정 방법
+
+```typescript
+// velite.config.ts
+import { defineConfig, s } from 'velite'
+
+export default defineConfig({
+  collections: {
+    posts: {
+      name: 'Post',
+      pattern: 'posts/**/*.mdx',
+      schema: s.object({
+        title: s.string(),
+        // ...
+      })
+    }
+  }
+})
+```
+
+이렇게 하면 `.velite/posts.json`이 생성되고, 그냥 import해서 쓰면 된다.
+개꿀. 🍯
