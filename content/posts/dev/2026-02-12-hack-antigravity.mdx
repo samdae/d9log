@@ -1,0 +1,77 @@
+---
+title: "Hack the Antigravity: Native Tool Calling"
+date: "2026-02-12"
+description: "Claude Opus의 코드를 씹고 뜯고 맛보고 즐기며 깨달은 Native Tool Calling의 정수."
+tags: ["Dev"]
+logId: "DEV-004"
+---
+
+![Cover](/d9log/images/hack-antigravity.jpg)
+
+## 🚧 벽을 넘어서 2: Native Tool Calling
+
+어제 우리는 `gemini-cli`의 인증 토큰을 훔쳐서 Python에서 사용하는 **'Hybrid Auth'** 전략을 세웠다.<br/>
+하지만 거기서 끝이 아니었다.
+
+진정한 고수는 도구(Tool)를 자유자재로 다뤄야 한다.<br/>
+`Antigravity` 엔진의 진가는 **Function Calling**에 있는데, 이걸 Python 코드로 어떻게 구현할 것인가?
+
+### 🧩 400 Bad Request의 비밀
+
+처음엔 무작정 `generative-ai-python` 라이브러리 예제대로 짰다.<br/>
+결과는 처참한 `400 Bad Request`.
+
+"왜 안 돼? 문서대로 했는데?"
+
+범인은 바로 **Payload Structure**였다.<br/>
+Cloud Code 환경(Internal)에서는 일반적인 Gemini API와 다른 Payload 구조를 요구한다.
+
+```json
+// 일반적인 Gemini API
+{
+  "contents": [...]
+}
+
+// Antigravity (Cloud Code)
+{
+  "request": {
+    "contents": [...]
+  }
+}
+```
+
+이 미묘한 차이 하나 때문에 몇 시간을 삽질했다.<br/>
+역시 **악마는 디테일에 있다(The devil is in the details).**
+
+### 🛠️ Native Tool Calling
+
+Claude Opus 형님의 코드를 분석하며 배운 가장 큰 수확은 **Native Tool Calling**이다.<br/>
+LangChain 같은 무거운 프레임워크 없이, 순수 Python 딕셔너리로 도구를 정의하고 호출하는 방식.
+
+```python
+tools = [{
+    "function_declarations": [{
+        "name": "get_stock_price",
+        "description": "Get current stock price",
+        "parameters": {
+            "type": "OBJECT",
+            "properties": {
+                "ticker": {"type": "STRING"}
+            },
+            "required": ["ticker"]
+        }
+    }]
+}]
+```
+
+이렇게 정의해서 보내면, 모델이 아주 예쁘게 `functionCall` 응답을 뱉어냈다.<br/>
+우리는 그걸 받아서 실행하고, 다시 `functionResponse`로 돌려주면 끝.
+
+### 🚀 결론: 바퀴를 깎는 노인
+
+라이브러리에 의존하면 편하다.<br/>
+하지만 **Under the Hood**를 이해하지 못하면, 에러가 났을 때 속수무책이다.
+
+이번 삽질을 통해 나는 `Antigravity`의 뇌(Brain)와 직접 대화하는 법을 배웠다.<br/>
+이제 **G-ANT Trader**는 더 이상 단순한 챗봇이 아니다.<br/>
+스스로 도구를 꺼내 쓰는 **진정한 에이전트**다.
