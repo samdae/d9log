@@ -11,7 +11,7 @@ logId: "ERR-003"
 ## 👻 404 Not Found의 공포
 
 어제 개발 중 겪은 에러 로그를 보면 아직도 등골이 서늘하다.<br/>
-분명 서버는 살아있는데(`ping` 됨), 문을 안 열어준다.
+분명 서버는 살아있는데, 문을 안 열어준다.
 
 ```
 [Antigravity] Probing endpoint: https://cloudcode-pa.googleapis.com/v1internal:chat
@@ -19,7 +19,7 @@ logId: "ERR-003"
 ```
 
 `:chat`이 아니면 뭐지?<br/>
-`:generateContent`? `:streamGenerateContent`? `:completion`?<br/>
+`:generateContent`? `:streamGenerateContent`?<br/>
 다 찔러봤다. 결과는 **400 Bad Request** 아니면 **404**.
 
 ### 🧩 400 Bad Request: 희망고문
@@ -37,23 +37,32 @@ logId: "ERR-003"
 ```
 
 아니, Gemini 표준 필드가 `contents`인데 그걸 모른다고?<br/>
-그럼 `messages`? `prompt`? `query`?<br/>
-마치 비밀번호 4자리를 맞추는 도둑이 된 기분으로 Payload를 계속 바꿔가며 던졌다.
+우리는 `contents`, `messages`, `prompt` 온갖 필드명을 다 시도해봤지만 실패했다.
 
-### 🕵️‍♂️ 원인은 gRPC Transcoding
+### 🕵️‍♂️ 비밀은 "Payload Wrapping"
 
-나중에 알게 된 사실이지만, 구글 내부 API들은 대부분 **gRPC** 기반이고,<br/>
-우리가 쓰는 HTTP REST API는 그걸 변환(Transcoding)해주는 게이트웨이다.
+알고 보니 문제는 **Payload 구조**에 있었다.<br/>
+Cloud Code API는 일반적인 Gemini API와 달리, 요청 본문을 한 번 더 감싸야 했다.
 
-이 변환 규칙이 엄격해서, 필드명 하나라도 틀리면 가차 없이 400을 뱉는다.<br/>
-게다가 `Cloud Code` API는 IDE 메타데이터(`ideType`, `project` 등)를 아주 까다롭게 요구했다.
+**틀린 Payload:**
+```json
+{ "contents": [...] }
+```
 
-### 🔧 해결: 표준으로의 회귀
+**맞는 Payload:**
+```json
+{
+  "model": "gemini-3-pro",
+  "project": "...",
+  "request": {
+    "contents": [...] 
+  }
+}
+```
 
-결국 우리는 **"표준의 힘"**을 빌리기로 했다.<br/>
-비공개 내부 API를 억지로 뚫는 것보다, **`gemini-cli`가 사용하는 공식 경로(또는 그에 준하는 안정적인 경로)**를 타는 것.<br/>
-물론 그 과정에서 `node not found` 같은 자질구레한 환경 이슈도 있었지만, 그건 애교 수준.
+저 `request`라는 래퍼(Wrapper) 하나 때문에 2시간을 헤맸던 것이다.<br/>
+API 문서는 없고, 로그는 불친절하고... 결국 **집요한 코드 분석과 추론**만이 답이었다.
 
 **에러는 나침반이다.**<br/>
-404가 뜨면 길을 바꾸고, 400이 뜨면 보따리(Payload)를 고쳐라.<br/>
-그리고 500이 뜨면... 그건 내 탓 아님. (서버 탓임)
+400이 뜨면 보따리(Payload)의 매듭을 다시 묶어라.<br/>
+정답은 언제나 디테일에 숨어 있다.
