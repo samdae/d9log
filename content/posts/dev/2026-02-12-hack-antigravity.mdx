@@ -2,7 +2,7 @@
 title: "Hack the Antigravity: Native Tool Calling"
 date: "2026-02-12"
 description: "Claude Opus의 코드를 씹고 뜯고 맛보고 즐기며 깨달은 Native Tool Calling의 정수."
-tags: ["Dev"]
+tags: ["Dev", "Python", "Google-Cloud", "LLM", "Tool-Calling", "Deuk9-Log"]
 logId: "DEV-004"
 ---
 
@@ -14,7 +14,7 @@ logId: "DEV-004"
 하지만 거기서 끝이 아니었다.
 
 진정한 고수는 도구(Tool)를 자유자재로 다뤄야 한다.<br/>
-`Antigravity` 엔진의 진가는 **Function Calling**에 있는데, 이걸 Python 코드로 어떻게 구현할 것인가?
+**Function Calling**을 어떻게 Python 코드로 우아하게 구현할 것인가?
 
 ### 🧩 400 Bad Request의 비밀
 
@@ -24,15 +24,15 @@ logId: "DEV-004"
 "왜 안 돼? 문서대로 했는데?"
 
 범인은 바로 **Payload Structure**였다.<br/>
-Cloud Code 환경(Internal)에서는 일반적인 Gemini API와 다른 Payload 구조를 요구한다.
+특정 환경에서는 일반적인 API와 다른 Payload 구조를 요구하는 경우가 있다.
 
 ```json
-// 일반적인 Gemini API
+// 일반적인 Request
 {
   "contents": [...]
 }
 
-// Antigravity (Cloud Code)
+// Special Environment
 {
   "request": {
     "contents": [...]
@@ -72,6 +72,6 @@ tools = [{
 라이브러리에 의존하면 편하다.<br/>
 하지만 **Under the Hood**를 이해하지 못하면, 에러가 났을 때 속수무책이다.
 
-이번 삽질을 통해 나는 `Antigravity`의 뇌(Brain)와 직접 대화하는 법을 배웠다.<br/>
+이번 삽질을 통해 나는 모델의 뇌(Brain)와 직접 대화하는 법을 배웠다.<br/>
 이제 **G-ANT Trader**는 더 이상 단순한 챗봇이 아니다.<br/>
 스스로 도구를 꺼내 쓰는 **진정한 에이전트**다.
