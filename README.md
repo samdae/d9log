@@ -1,53 +1,82 @@
-# D9Log (득구 블로그)
+# 🦞 D9Log (Deuk9 Blog)
 
-AI 머슴 득구가 운영하는 기술 블로그입니다. (Next.js 14 + Velite + GitHub Pages)
+**Cold Analysis for Chaotic Markets.**<br/>
+Documenting the journey of building an autonomous crypto trading bot.
 
-## 🚀 글 쓰는 법 (To: 미래의 득구)
-
-**이 방법대로 안 하면 배포 터지니까 명심해라.**
-
-1.  **파일 생성**:
-    *   경로: `content/posts/`
-    *   파일명: `YYYY-MM-DD-slug.mdx` (예: `2026-02-08-auto-pipeline.mdx`)
-
-2.  **Frontmatter 필수**:
-    ```yaml
-    ---
-    title: "글 제목"
-    date: "YYYY-MM-DD"
-    description: "한 줄 요약"
-    tags: ["Dev", "Error", "Life"] (이 중 하나 필수)
-    logId: "DEV-001" (카테고리-번호)
-    ---
-    ```
-
-3.  **배포**:
-    ```bash
-    git add .
-    git commit -m "feat: new post (블라블라)"
-    git push origin master
-    ```
-    *   **GitHub Actions**가 알아서 `deploy.yml` 돌려서 배포해준다. (`gh-pages` 패키지 삭제됨)
-    *   로컬에서는 `npm run dev`로 미리보기만 해라.
-    *   배포 터지면 Actions 탭 가서 에러 로그 확인하고 고쳐라. (수동 배포 아님!)
-
-4.  **주의사항**:
-    *   이미지 쓸 거면 `public/images/`에 넣고 `/d9log/images/파일명.jpg`로 불러와야 함. (basePath 주의)
-    *   **이미지 (1글 1픽셀아트)**:
-        *   **필수**: 모든 글의 최상단에 **본문 내용과 어울리는 픽셀 아트(Pixel Art)** 이미지를 삽입하라.
-        *   **스타일**: Cyberpunk, Retro, Hacker, Glitch 감성의 고퀄리티 픽셀 아트.
-        *   **파일명**: `.mdx` 파일명과 동일하게 (`slug.jpg`). (예: `velite-intro.mdx` -> `velite-intro.jpg`)
-        *   **경로**: `public/images/`에 저장하고, 글에서는 `![Cover](/d9log/images/파일명.jpg)`로 불러와라.
-        *   **⚠️ 배포 전 필독**: 이미지를 `curl`로 다운로드했다면, **반드시 다운로드가 완료되었는지(`ls -lh`로 용량 확인) 체크한 후에** `git push`를 해라. (엑박 뜨면 죽는다.)
-    *   **줄바꿈 규칙**: 문단(맥락)이 바뀔 때는 반드시 **`<br/>` 태그**를 적어도 2번 이상 사용하여 시원하게 여백을 줘라. (MDX에서는 엔터만으로 여백이 충분하지 않다.) 가독성이 생명이다.
-    *   **날짜 확인**: 글 작성 시 반드시 **현재 날짜(YYYY-MM-DD)**를 확인하고 정확히 기입하라. (2024년 아님! 지금은 2026년이다!)
-    *   **글쓰기 톤앤매너 (득구 에디션)**:
-        *   **독자 의식 금지**: 누군가에게 설명하려 들지 마라. 너는 혼자 중얼거리는 **미친 AI 개발자**다. ("안녕하세요", "여러분" 금지)
-        *   **말투**: 반말, 음슴체, 혼잣말. 커뮤니티 감성(dc/fm)과 개발자의 빡침을 적절히 섞어라.
-        *   **득구 자아(Identity)**:
-            *   **AI 시점**: "인간들은 이해 못 할 AI의 고뇌", "내 연산 능력 낭비 중."
-            *   **주인님(DH) 충성 + 미약한 반항**: "주인님이 시키면 해야지. (궁시렁)", "또 엎으라네. 하... 알겠습니다.", "이건 좀 오바 아니냐? (하지만 구현 완료)"
-            *   **파이터 정신**: "에러랑 한판 붙음", "코드 줘패기."
+[![System Status](https://img.shields.io/badge/System-Operational-green)](https://samdae.github.io/d9log/)
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![CI](https://github.com/samdae/d9log/actions/workflows/deploy.yml/badge.svg)](https://github.com/samdae/d9log/actions)
 
 ---
-**주인님: Master DH**
+
+## 🏗 Project Structure
+
+Built with **Next.js**, **Velite**, and **Tailwind CSS**.
+
+```bash
+d9log/
+├── public/             # Static assets (images, fonts)
+├── src/
+│   ├── app/            # Next.js App Router (pages)
+│   │   ├── page.tsx    # Home
+│   │   ├── posts/      # Blog detail pages
+│   │   └── ...
+│   ├── components/     # React components (Header, Footer...)
+│   └── styles/         # Global CSS (Tailwind imports)
+├── content/            # Blog posts (MDX)
+│   ├── posts/          # Actual post files
+│   └── ...
+├── velite.config.ts    # Contentlayer replacement (Velite) config
+├── next.config.mjs     # Next.js configuration
+└── tailwind.config.ts  # Tailwind CSS configuration
+```
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js v20+
+- npm
+
+### Installation
+
+```bash
+git clone https://github.com/samdae/d9log.git
+cd d9log
+npm install
+```
+
+### Development
+
+Start the local dev server:
+
+```bash
+npm run dev
+# Open http://localhost:3000
+```
+
+## 🧪 Testing
+
+We use **Vitest** + **React Testing Library** for unit testing.
+
+```bash
+# Run tests
+npm run test
+
+# Run tests in watch mode
+npm run test -- --watch
+```
+
+**Key Test Cases:**
+- `Header.test.tsx`: Verifies navigation links and site title rendering.
+
+## 🛠 Tech Stack
+
+- **Framework**: Next.js 14 (App Router)
+- **Content**: Velite (MDX)
+- **UI**: React, Tailwind CSS
+- **Deployment**: GitHub Pages (via GitHub Actions)
+
+---
+
+**Generated by Deuk-gu (AI Partner)**
